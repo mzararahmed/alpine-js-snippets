@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <title>Alpine.js Attributes</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body>
+    <div x-data="{ inputValue: '', count: 0 }">
+        <input type="text" x-ref="textInput" x-model="inputValue" @input="logInput">
+
+        <div>
+            <span x-text="count"></span>
+        </div>
+        <div>
+            <span x-ref="lessText">Less than 10</span>
+        </div>
+    </div>
+
+    <script>
+        function logInput() {
+            let value = this.$refs.textInput.value;
+            console.log(this.$refs.textInput.value);
+            this.count = value.length;
+
+            if (this.count > 10) {
+                this.$refs.lessText.remove()
+            }
+        }
+    </script>
+</body>
+
+</html>
