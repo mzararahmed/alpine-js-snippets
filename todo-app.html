@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <title>Alpine.js Hands-On</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            /* Add a line-through decoration for completed tasks */
+            color: #888;
+            /* Change the color to a muted gray for completed tasks */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>To-Do List</h1>
+    <div x-data="sharedTasks">
+        <input type="text" x-model="newTask" @keyup.enter="addTask" placeholder="Add new task...">
+        <ul>
+            <template x-for="(task, index) in tasks" :key="index">
+                <li :class="{ 'completed': task.completed }">
+                    <span x-text="task.title"></span>
+                    <button @click="toggleCompleted(index)">Toggle</button>
+                    <button @click="deleteTask(index)">Delete</button>
+                </li>
+            </template>
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('sharedTasks', () => ({
+                tasks: [
+                    { title: 'Task 1', completed: false },
+                    { title: 'Task 2', completed: false }],
+                newTask: '',
+                addTask() {
+                    if (this.newTask.trim() !== '') {
+                        this.tasks.push({ title: this.newTask, completed: false });
+                        this.newTask = '';
+                    }
+                },
+                toggleCompleted(index) {
+                    this.tasks[index].completed = !this.tasks[index].completed;
+                },
+                deleteTask(index) {
+                    this.tasks.splice(index, 1);
+                }
+            }))
+        })
+    </script>
+
+</body>
+
+</html>
