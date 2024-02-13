@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <title>x-show vs x-if</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        div {
+            margin-top: 15px;
+        }
+
+        .force {
+            display: inline !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div x-data="weatherApp">
+        <input type="text" x-model="selectedCity" x-ref="cityInput" @input="filterCities" placeholder="Enter city name">
+        <div x-show="filteredCities.length">
+            <template>
+                <ul>
+                    <li x-for="city in filteredCities" @click="selectedCity = city; filteredCities = []" x-text="city">
+                    </li>
+                </ul>
+            </template>
+        </div>
+        <button @click="getWeather">Get Weather</button>
+        <div x-show="weatherData">
+            <h2 x-text="selectedCity"></h2>
+            <p x-html="weatherData"></p>
+        </div>
+        <template x-if="!weatherData && selectedCity">
+            <p>Loading...</p>
+        </template>
+    </div>
+
+    <script>
+        function getRandomWeather() {
+            const descriptions = ['Sunny', 'Cloudy', 'Rainy', 'Stormy'];
+            const temperature = Math.round(Math.random() * 30) + 10;
+            const description = descriptions[Math.floor(Math.random() * descriptions.length)];
+            const icon = 'https://picsum.photos/30'; // Placeholder URL for weather icon
+            return `<img src="${icon}" alt="${description}"> <strong>${temperature}°C</strong> and ${description} `;
+        }
+        document.addEventListener("alpine:init", () => {
+            Alpine.data('weatherApp', () => ({
+                cities: ['NewYork', 'London', 'Tokyo'],
+                selectedCity: '',
+                weatherData: null,
+                filteredCities: [],
+                filterCities() {
+                    this.filteredCities = this.cities.filter(city => city.toLowerCase().includes(this.selectedCity.toLowerCase()));
+                },
+                getWeather() {
+                    setTimeout(() => {
+                        const dummyWeatherData = getRandomWeather();
+                        this.weatherData = dummyWeatherData;
+                    }, 1000);
+                }
+            }));
+        })
+    </script>
+</body>
+
+</html>
