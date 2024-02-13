@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <title>x-show vs x-if</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        div {
+            margin-top: 15px;
+        }
+
+        .force {
+            display: inline !important;
+        }
+    </style>
+</head>
+
+<body>
+    <section x-data="{ xShowVisible: true, xShowForce: true, xIfVisible: true, }">
+        <h2>x-show vs x-if</h2>
+        <div>
+            <button x-on:click="xShowVisible = ! xShowVisible">Toggle x-show</button>
+
+            <span x-show="xShowVisible" x-transition>
+                This element's 'display' will be set
+            </span>
+        </div>
+
+        <!-- ====================================== -->
+        <div>
+            <button x-on:click="xShowForce = ! xShowForce">Toggle x-show important</button>
+
+            <span x-show.important="xShowForce" class="force">
+                this element's 'display' will be set only if x-show.important is used
+            </span>
+        </div>
+
+        <!-- ===================================== -->
+        <div>
+
+            <button x-on:click="xIfVisible = ! xIfVisible">Toggle x-if</button>
+            <template x-if="xIfVisible">
+                <div>This element will be removed from the DOM</div>
+            </template>
+
+        </div>
+    </section>
+</body>
+
+</html>
