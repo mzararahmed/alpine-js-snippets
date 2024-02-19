@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using $el and $refs in Alpine.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+</head>
+
+<body>
+
+    <div x-data="{ inputValue: '' }">
+        <!-- Accessing $el -->
+        <div x-text="'Root element tag name: ' + $el.tagName"></div>
+
+        <!-- Using $refs -->
+        <input type="text" x-ref="textInput" x-model="inputValue">
+        <button @click="$refs.textInput.focus()">Focus Input</button>
+
+        <!-- Applying styles using $el -->
+        <div x-ref="styledDiv" style="border: 1px solid black; padding: 10px;">
+            <button @click="$el.style.backgroundColor = 'lightblue'">Change Background Color</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
