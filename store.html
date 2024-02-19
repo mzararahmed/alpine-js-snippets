@@ -1,0 +1,43 @@
+<html lang="en">
+
+<head>
+    <title>Alpine.store</title>
+    <style>
+        .bgblack {
+            color: rgb(212, 128, 128);
+        }
+    </style>
+</head>
+
+<body>
+    <div x-data>
+        <button x-data @click="$store.darkMode.on = ! $store.darkMode.on">Toggle Dark Mode</button>
+
+        ...
+
+        <div x-data :class="$store.darkMode.on && 'bgblack'">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, corporis totam vero pariatur unde corrupti
+            rerum
+            illo perferendis provident, quae asperiores, architecto accusantium ut tempora? Esse quas quo quis dolorem.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis blanditiis voluptate veritatis id saepe
+            voluptatibus atque, iste aliquid ullam accusantium sunt hic adipisci voluptatem architecto aperiam. Quis
+            maxime
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('darkMode', {
+                on: false,
+
+                toggle() {
+                    this.on = !this.on
+                }
+            })
+        })
+    </script>
+
+</body>
+
+</html>

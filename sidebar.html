@@ -1,0 +1,140 @@
+<html>
+
+<head>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <title>Animated Sidebar with Alpine.js</title>
+    <style>
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 1.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.9s;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        .sidenav-open {
+            width: 250px;
+        }
+
+        .info-text {
+            transition: 1.5s;
+        }
+
+        .info-text-open {
+            margin-left: 250px;
+        }
+
+        .open-button {
+            font-size: 30px;
+            cursor: pointer
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+
+        /* Modal styling */
+        .modal {
+            position: fixed;
+            top: 40%;
+            left: 40%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        /* Modal animation */
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s, visibility 0s;
+        }
+
+        /* Overlay styling */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0s linear 0.3s;
+        }
+
+        /* Overlay animation */
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s, visibility 0s;
+        }
+    </style>
+</head>
+
+<body>
+    <div x-data="sidebarMenu">
+        <span class="open-button" @click="toggle">&#9776;</span>
+        <div class="sidenav" :class="{'sidenav-open': isOpen}">
+            <a class="closebtn" @click="toggle">&times;</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="info-text" :class="{'info-text-open': isOpen}">
+            <h2>Animated Sidenav Example</h2>
+            <p>Click on the element below to open the side navigation menu.</p>
+
+        </div>
+    </div>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('sidebarMenu', () => ({
+                isOpen: true,
+                showModal: false,
+                toggle() {
+                    this.isOpen = !this.isOpen
+                }
+            }))
+        })
+    </script>
+</body>
+
+</html>

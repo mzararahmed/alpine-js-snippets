@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Modal Windows with Alpine.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <style>
+        /* Modal styling */
+        .modal {
+            position: fixed;
+            top: 40%;
+            left: 40%;
+            /* transform: translate(-50%, -50%); */
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            /* opacity: 0; */
+            /* visibility: hidden; */
+            /* transition: 2s; */
+            /* transition: opacity 0.3s, visibility 0s linear 0.3s; */
+            z-index: 1000;
+        }
+
+        /* Modal animation */
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s, visibility 0s;
+        }
+
+        /* Overlay styling */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0s linear 0.3s;
+        }
+
+        /* Overlay animation */
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s, visibility 0s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div x-data="{ showModal: false }">
+        <!-- Button to toggle modal -->
+        <button @click="showModal = !showModal">Open Modal</button>
+
+        <!-- Modal window -->
+        <div class="modal" x-show.transition.duration.1300ms="showModal">
+            <h2>Modal Window</h2>
+            <p>This is a modal window with animated transitions.</p>
+            <button @click="showModal = false">Close</button>
+        </div>
+
+        <!-- Overlay -->
+        <div class="overlay" x-show.transition.duration.300ms="showModal" @click="showModal = false"></div>
+    </div>
+
+</body>
+
+</html>
