@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$dispatch Example in Alpine.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+</head>
+
+<body>
+    <div x-data="{ showModal: false }">
+        <!-- Parent Component -->
+        <button @click="showModal = true">Open Modal</button>
+        <child-component x-show="showModal" @close-modal="showModal = false"></child-component>
+    </div>
+
+    <script>
+        // Child Component
+        Alpine.component('child-component', {
+            template: `
+            <div>
+                <h2>Child Component</h2>
+                <button @click="closeModal">Close Modal</button>
+            </div>
+        `,
+            methods: {
+                closeModal() {
+                    this.$dispatch('close-modal');
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
