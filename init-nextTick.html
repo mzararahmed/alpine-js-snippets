@@ -1,0 +1,31 @@
+<html lang="en">
+
+<head>
+    <title>x-init and nextTick</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body>
+    <div x-data="initializeComponent" x-init="init()">
+        <button x-on:click="increment">Increment</button>
+        <p x-text="count"></p>
+        <div x-init="$nextTick(() => { console.log('Next tick after alpine js finished rendering') })"></div>
+
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('initializeComponent', () => ({
+                count: 0,
+                init() {
+                    console.log("count: ", this.count)
+                },
+                increment() {
+                    this.count += 1
+                }
+            }))
+        })
+    </script>
+</body>
+
+</html>
