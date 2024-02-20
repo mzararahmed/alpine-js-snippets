@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List Component with Alpine.js</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body>
+
+    <div x-data="taskListComponent">
+        <!-- Task List Component -->
+        <div>
+            <h2>Task List</h2>
+            <ul>
+                <template x-for="(task, index) in tasks" :key="index">
+                    <li @notify="alert($event.detail.message)">
+                        <input type="checkbox" x-model="task.completed"
+                            @change="$dispatch('notify', {message: task.name})">
+                        <span x-text="task.name"></span>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('taskListComponent', () => ({
+                tasks: [
+                    { name: 'Task 1', completed: false },
+                    { name: 'Task 2', completed: false },
+                    { name: 'Task 3', completed: false }
+                ],
+                init() {
+                    // Watch for changes to the task list
+                    this.$watch('tasks', (value) => {
+                        console.log('Task list updated:', value);
+                    }, { deep: true });
+                }
+            }))
+        })
+    </script>
+
+</body>
+
+</html>
