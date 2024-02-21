@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <title>Asynchronous JavaScript</title>
+    <!-- Alpine Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</head>
+
+<body>
+    <div>
+        <span x-text="getLabel"></span>
+
+        <span x-text="await getLabel"></span>
+    </div>
+
+    <script>
+        async function getLabel() {
+            let response = await fetch('/api/label')
+
+            return await response.text()
+        }
+
+    </script>
+</body>
+
+</html>
