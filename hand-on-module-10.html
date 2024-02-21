@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.2.0/dist/tailwind.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body class="bg-gray-400 text-gray-800">
+    <!-- Usage of Alpine.store -->
+    <div x-data :class="$store.darkMode.on && 'bg-black'">
+        <button x-data @click="$store.darkMode.toggle()">Toggle Dark Mode</button>
+
+        <!-- Alpine.data -->
+        <div class="container mx-auto px-4" x-data="apiResponse">
+            <div class="flex items-center text-center justify-center h-screen text-2xl italic"
+                x-text="`&quot;${quote}&quot;`"></div>
+            <span x-text="counter"></span>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            // Alpine.store
+            Alpine.store('darkMode', {
+                on: false,
+
+                toggle() {
+                    this.on = !this.on
+                }
+            });
+
+            // Alpine.data
+            Alpine.data('apiResponse', () => ({
+                timer: null,
+                counter: 0,
+                quote: '',
+                init() {
+                    // Register an event handler that references the component instance
+                    this.timer = setInterval(() => {
+                        console.log('Increased counter to', ++this.counter);
+
+                    }, 1000);
+                    fetch('https://api.kanye.rest')
+                        .then(response => response.json())
+                        .then(data => this.quote = data.quote)
+                },
+                destroy() {
+                    // Detach the handler, avoiding memory and side-effect leakage
+                    clearInterval(this.timer);
+                },
+            }));
+
+        })
+    </script>
+</body>
+
+</html>
