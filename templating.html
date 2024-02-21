@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <title>Templating Directives</title>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.2.0/dist/tailwind.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body class="bg-gray-400 text-gray-800">
+    <h1 class="pl-3">x-text</h1>
+    <div x-data="{ title: 'Start Here' }" class="mb-3 bg-gray-400 px-3">
+        <h3 x-text="title">
+        </h3>
+        <span x-text="1 + 2"></span>
+    </div>
+
+    <!-- x-show -->
+    <div x-data="{ open: false }" class="mb-3 bg-gray-700 px-3 text-white pb-3">
+        x-show
+        <div>
+            <button @click="open = ! open" class="btn btn-primary border border-primary rounded p-1">Expand</button>
+        </div>
+
+        <div x-show="open">
+            Content...
+        </div>
+    </div>
+
+    <!-- x-if -->
+    <div x-data="{ open: false }" class="mb-3 bg-gray-400 px-3">
+        x-if
+        <div>
+            <button @click="open = ! open" class="btn btn-primary border border-primary rounded p-1">Expand</button>
+        </div>
+        <template x-if="open">
+            <div>
+                Content...
+            </div>
+        </template>
+    </div>
+
+    <!-- Toggling with transitions -->
+    <div x-data="{ open: false }" class="mb-3 bg-gray-700 px-3 text-white pb-3">
+        x-transition
+        <div>
+            <button @click="open = ! open" class="btn btn-primary border border-primary rounded p-1">Expand</button>
+        </div>
+
+        <div x-show="open" x-transition>
+            Content
+        </div>
+
+        <div x-show="open" x-transition.duration.2000ms>
+            Content
+        </div>
+        <div x-show="open" x-transition.opacity.duration.2000ms>
+            Content
+        </div>
+        <div x-show="open" x-transition.scale.duration.2000ms>
+            Content
+        </div>
+    </div>
+</body>
+
+</html>
