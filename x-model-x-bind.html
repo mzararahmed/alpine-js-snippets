@@ -1,0 +1,32 @@
+<html lang="en">
+
+<head>
+    <title>x-model and x-bind</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body>
+    <div x-data="{
+        message: '',
+        isDisabled: false,
+        placeHolder: 'Enter Your message'
+    }">
+        <!-- x-model example -->
+        <div class="m-3">
+            <input type="text" x-model="message" :placeholder="placeHolder">
+            <button @click="console.log(message)">Show Message</button>
+        </div>
+
+        <!-- x-bind example -->
+        <div class="m-3">
+            <button @click="isDisabled = !isDisabled" x-bind:disabled="isDisabled"
+                x-bind:class="{'btn': isDisabled, 'btn-primary': isDisabled }"
+                x-bind:style="isDisabled && {color: 'gray' }">Toggle
+                Disable</button>
+        </div>
+    </div>
+</body>
+
+</html>
