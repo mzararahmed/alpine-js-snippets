@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
+body {
+  font-family: 'Gochi Hand', cursive;
+}
+.text-glow-xl {
+  text-shadow: 0 0 5px rgb(255 255 255 / 80%), 0 0 20px rgb(255 255 255 / 29%);
+}

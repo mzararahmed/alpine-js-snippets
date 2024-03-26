@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+  <div class="min-w-screen min-h-screen bg-gray-800 flex items-center justify-center px-5 py-5">
+    <div class="w-96 h-96 mx-auto text-indigo-500 rounded-md flex flex-wrap relative" x-data="app()">
+        <div class="flex w-full h-1/3">
+            <template x-for="(item,index) in grid.slice(0,3)">
+                <div class="border-b border-gray-700 w-1/3" :class="{'border-l':index>0}">
+                    <button class="w-full h-full outline-none focus:outline-none text-8xl leading-none" @click.prevent="select(index)">
+                        <span x-show="item!==null" x-text="item" style="display:none;" class="inline-block" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-50" x-transition:enter-end="opacity-100 transform scale-100"></span>
+                    </button>
+                </div>
+            </template>
+        </div>
+        <div class="flex w-full h-1/3">
+            <template x-for="(item,index) in grid.slice(3,6)">
+                <div class="border-b border-gray-700 w-1/3" :class="{'border-l':index>0}">
+                    <button class="w-full h-full outline-none focus:outline-none text-8xl leading-none" @click.prevent="select(index+3)">
+                        <span x-show="item!==null" x-text="item" style="display:none;" class="inline-block" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-50" x-transition:enter-end="opacity-100 transform scale-100"></span>
+                    </button>
+                </div>
+            </template>
+        </div>
+        <div class="flex w-full h-1/3">
+            <template x-for="(item,index) in grid.slice(6,9)">
+                <div class="border-gray-700 w-1/3" :class="{'border-l':index>0}">
+                    <button class="w-full h-full outline-none focus:outline-none text-8xl leading-none" @click.prevent="select(index+6)">
+                        <span x-show="item!==null" x-text="item" style="display:none;" class="inline-block" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-50" x-transition:enter-end="opacity-100 transform scale-100"></span>
+                    </button>
+                </div>
+            </template>
+        </div>
+        <button class="absolute top-0 left-0 w-96 h-96 flex items-center justify-center outline-none focus:outline-none" style="display:none;" x-show="won||turns>=9" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-50 rotate-12" x-transition:enter-end="opacity-100 transform scale-100 rotate-0" @click.prevent="reset()">
+            <span class="block transform -rotate-12 text-white text-9xl text-glow-xl" x-text="won?'Winner!':'😔'"></span>
+        </button>
+    </div>
+  </div>
+  
+  
+  <!-- BUY ME A BEER AND HELP SUPPORT OPEN-SOURCE RESOURCES -->
+  <div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
+    <div>
+        <a title="Buy me a beer" href="https://www.buymeacoffee.com/mdzararahmq" target="_blank" class="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12">
+            <img class="object-cover object-center w-full h-full rounded-full" src="https://i.pinimg.com/originals/60/fd/e8/60fde811b6be57094e0abc69d9c2622a.jpg"/>
+        </a>
+    </div>
+  </div>
+  <script src="./index.js"></script>
+</body>
+</html>
